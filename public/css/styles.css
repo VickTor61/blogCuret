@@ -1,0 +1,98 @@
+/* html body {
+  height: auto;
+} */
+#brandname {
+  font-size: 1.5rem;
+  opacity: 0.8;
+  text-transform: uppercase;
+  margin-left: 1rem;
+}
+.nav-brand {
+  padding: 1.5rem 0;
+}
+.navbar {
+  padding-top: 15px;
+  padding-bottom: 15px;
+  border: 0;
+  border-radius: 0;
+  margin-bottom: 0;
+  font-size: 12px;
+  letter-spacing: 5px;
+  font-size: 1rem;
+}
+@media only screen and (min-width: 992px) {
+  #nav-right {
+    margin-left: 30%;
+  }
+  .navbar-nav li a {
+    margin: 0 0.7rem;
+  }
+}
+@media only screen and (min-width: 1347px) {
+  #nav-right {
+    margin-left: 45%;
+  }
+}
+.navbar-nav li a:hover {
+  color: #1abc9c !important;
+}
+
+.post-link {
+  color: rgb(96, 18, 174);
+  text-decoration: none;
+}
+.post-link:hover {
+
+  color: rgb(96, 18, 174);
+  text-decoration: none;
+  cursor: pointer;
+}
+.compose-title {
+  font-size: 0.8rem;
+  font-weight: 700;
+  font-family: sans-serif;
+  letter-spacing: 2px;
+}
+.compose {
+  width: 100%;
+  border: solid rgba(210, 210, 206, 0.559);
+
+  border-radius: 7px;
+}
+.compose-post {
+  resize: none;
+  height: 10rem;
+}
+.compose:focus {
+  outline: none;
+}
+.content textarea:focus {
+  outline: none;
+}
+.btn {
+  margin-top: 1.5rem;
+  border-radius: 10px;
+  background-color: rgb(96, 18, 174);
+  color: #fff;
+  padding: 0.5rem 1.5rem;
+}
+.btn:hover {
+  color: #fff;
+}
+.footer-padding {
+  margin-bottom: 0;
+}
+.footer {
+  position: absolute;
+  text-align: center;
+  bottom: 0;
+
+  width: 100%;
+  height: 60px;
+  background-color: #1abc9c;
+}
+.footer p {
+  margin-top: 22px;
+  font-size: 1.2rem;
+  color: #fff;
+}
