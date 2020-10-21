@@ -28,14 +28,14 @@ mongoose.connect("mongodb://localhost:27017/blogDB", {
 
 const blogSchema = new mongoose.Schema({
   title: String,
-  body: String,
+  content: String
 });
 
 const Post = mongoose.model("post", blogSchema);
 
 const day1 = new Post({
   title: "todays posts",
-  content: "whatsoever it is is what exactly it",
+  content: "whatsoever it is is what exactly it"
 });
 const day2 = new Post({
   title: "todays jaklhfuohaou",
@@ -45,18 +45,23 @@ const day2 = new Post({
 
 const posts = ([day1, day2]);
 
-app.get("/", function (req, res) {
-  Post.find({}, (err, posts) => {
-    err
-      ? console.log(err)
-      : res.render("home", {
-          startingContent: homeStartingContent,
-          display: posts
-        });
+app.get("/", function(req, res) {
+  res.render("home", {
+    startingContent: homeStartingContent,
+    display: posts
   });
+
+  // Post.find({}, (err, posts) => {
+  //   err
+  //     ? console.log(err)
+  //     : res.render("home", {
+  //         startingContent: homeStartingContent,
+  //         display: posts
+  //       });
+  // });
 });
 
-app.get("/about", function (req, res) {
+app.get("/about", function(req, res) {
   res.render("about", { about: aboutContent });
 });
 
