@@ -2,11 +2,12 @@
 
 <h1>HOME</h1>
 <p><%= startingContent %></p>
-<a href=""></a>
+
 <% display.forEach(element => { %>
 <h1><%= element.title %></h1>
 <p>
-  <%= element.body.substring(0, 100) + " ..." %>
+  <%= console.log(element.content) %>
+  <%= element.content + " ..." %>
   <a href="/posts/<%=element.title%>" class="post-link">Read More</a>
 </p>
 <% }); %> <%- include("partials/footer"); -%>

@@ -3,6 +3,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const ejs = require("ejs");
 const _ = require("lodash");
+const mongoose = require("mongoose");
 
 const homeStartingContent =
   "Lorem ipsum dolor sit amet, suas ponderum laboramus duo ad, his eu dicunt conclusionemque.Periculis interpretaris ex per, nominavi mediocritatem nec at.";
@@ -20,10 +21,39 @@ app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(__dirname + "/public"));
 
-const posts = [];
+mongoose.connect("mongodb://localhost:27017/blogDB", {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
+
+const blogSchema = new mongoose.Schema({
+  title: String,
+  body: String,
+});
+
+const Post = mongoose.model("post", blogSchema);
+
+const day1 = new Post({
+  title: "todays posts",
+  content: "whatsoever it is is what exactly it",
+});
+const day2 = new Post({
+  title: "todays jaklhfuohaou",
+  content: "whatsoever it is is efklj exactly itbjalkbsvvvvvvvvvvjvjblamkm  hkjfvbjkhalsnpohsoihha[piohaosh ikoshvpiohia ijviaoh",
+});
+// Post.updateOne({ "_id" : "5f9040b0be369d3640fe4bc1"}, {$set: {content: "whatsoever it is is efklj exactly itbjalkbsvvvvvvvvvvjvjblamkm  hkjfvbjkhalsnpohsoihha[piohaosh ikoshvpiohia ijviaoh"}}, (err) => err ? console.log(err): console.log("success"));
+
+const posts = ([day1, day2]);
 
 app.get("/", function (req, res) {
-  res.render("home", { startingContent: homeStartingContent, display: posts });
+  Post.find({}, (err, posts) => {
+    err
+      ? console.log(err)
+      : res.render("home", {
+          startingContent: homeStartingContent,
+          display: posts
+        });
+  });
 });
 
 app.get("/about", function (req, res) {
@@ -40,7 +70,7 @@ app.get("/compose", function (req, res) {
 app.post("/compose", function (req, res) {
   const composeBody = {
     title: req.body.postTitle,
-    body: req.body.postBody,
+    content: req.body.postBody,
   };
   posts.push(composeBody);
 
@@ -54,7 +84,7 @@ app.get("/posts/:posted", function (req, res) {
     if (postTitle === composeLowercase) {
       res.render("post", {
         title: posts[i].title,
-        content: posts[i].body,
+        content: posts[i].content,
       });
     }
   }
