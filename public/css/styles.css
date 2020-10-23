@@ -1,6 +1,9 @@
-/* html body {
-  height: auto;
-} */
+ body {
+  display: flex;
+  min-height: 100vh;
+  flex-flow: column;
+  margin: 0;
+}
 #brandname {
   font-size: 1.5rem;
   opacity: 0.8;
@@ -36,7 +39,9 @@
 .navbar-nav li a:hover {
   color: #1abc9c !important;
 }
-
+.post__container {
+  display: block;
+}
 .post-link {
   color: rgb(96, 18, 174);
   text-decoration: none;
@@ -78,15 +83,75 @@
 }
 .btn:hover {
   color: #fff;
+  display: inline-block;
+}
+
+
+.icon__left {
+ font-size: 16px;
+ color: rgba(145, 64, 226, 0.699);
+padding: 10px;
+display: flex;
+justify-content: center;
+cursor: pointer;
+}
+.modal__content {
+  display: none;
+  text-align: center;
+    height: 10rem;
+    width: 20rem;
+    background-color: #ecdcecd5;
+    z-index: 1;
+    margin: 0 auto;
+    position: fixed;
+    top: 40%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    border-radius: 20px;
+    box-shadow: 1.5rem 1.5rem  1.5rem  rgba(184, 182, 182, 0.3);
+    
+    overflow: hidden;
+}
+.modal__btn {
+ margin-top: 25px;
+ padding: 5px 16px;
+ background-color: rgba(236, 72, 72, 0.582);
+ border-radius: 10px;
+ border-style: none;
+ border: 1px solid rgba(236, 72, 72, 0.582);
+ color: rgba(239, 230, 248, 0.829);
+
+}
+button:focus {
+  outline: none;
+}
+.modal__icon {
+display: flex;
+justify-content: flex-end;
+margin: 10px 15px 10px 10px;
+font-size: 20px;
+font-weight: 800;
+color: #181717a2;
+cursor: pointer;
+}
+
+.modal__body {
+font-size: 16px;
+text-align: center;
+color: #181717a2;
+top: 10px;
+position: relative;
 }
 .footer-padding {
   margin-bottom: 0;
 }
 .footer {
+
   position: absolute;
   text-align: center;
   bottom: 0;
-
+margin-top: auto;
   width: 100%;
   height: 60px;
   background-color: #1abc9c;
