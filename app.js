@@ -47,6 +47,7 @@ const day2 = new Post({
 const posts = [day1, day2];
 
 app.get("/", function (req, res) {
+  try {
   Post.find({}, (err, foundItems) => {
     if (!foundItems) {
       Post.insertMany(posts, (err) => {
@@ -64,6 +65,10 @@ app.get("/", function (req, res) {
       });
     }
   });
+}catch(err){
+  next(err
+)
+}
 });
 
 app.get("/about", function (req, res) {
@@ -93,6 +98,7 @@ app.post("/compose", function (req, res) {
   res.redirect("/");
 });
 app.get("/posts/:posted", function (req, res) {
+  try {
   Post.find({}, (err, foundItems) => {
     if (err) {
       console.log(err);
@@ -110,17 +116,25 @@ app.get("/posts/:posted", function (req, res) {
       });
     }
   });
+} catch(err) {
+  next(err);
+}
 });
 
 //delete post from both frontend and backend
 
 app.post("/delete", (req, res) => {
+  try {
   const deleteItem = req.body.deleteBtn;
 
   Post.findByIdAndRemove(deleteItem, (err) => {
     err ? console.log(err) : console.log("successfully deleted from database");
   });
   res.redirect("/");
+}
+catch(err) {
+  next(err)
+}
 });
 
 app.listen(process.env.PORT || 3030, function () {
