@@ -4,7 +4,7 @@ const bodyParser = require("body-parser");
 const ejs = require("ejs");
 const _ = require("lodash");
 const mongoose = require("mongoose");
-var domino = require("domino");
+
 
 const homeStartingContent =
   "Lorem ipsum dolor sit amet, suas ponderum laboramus duo ad, his eu dicunt conclusionemque.Periculis interpretaris ex per, nominavi mediocritatem nec at.";
@@ -22,7 +22,7 @@ app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(__dirname + "/public"));
 
-mongoose.connect("mongodb://localhost:27017/blogDB", {
+mongoose.connect("mongodb+srv://victor-admin:osasenaga@cluster0.ld5s3.mongodb.net/blogDB", {
   useNewUrlParser: true,
   useUnifiedTopology: true,
   useFindAndModify: false,
@@ -112,25 +112,11 @@ app.get("/posts/:posted", function (req, res) {
   });
 });
 
-var Element = domino.impl.Element; // etc
-
-var window = domino.createWindow("<h1>Hello world</h1>", "http://example.com");
-var document = window.document;
-
-var h1 = document.querySelector(".modal__btn ");
-console.log(h1);
-
 //delete post from both frontend and backend
 
 app.post("/delete", (req, res) => {
   const deleteItem = req.body.deleteBtn;
-  const modalContent = document.getElementById("modal__content");
-  const modalBtn = document.querySelector(".modal__btn");
-  const btnSubmit = document.querySelector(".btn__submit");
 
-  btnSubmit.addEventListener("click", function () {
-    modalContent.body.style = "block";
-  });
   Post.findByIdAndRemove(deleteItem, (err) => {
     err ? console.log(err) : console.log("successfully deleted from database");
   });
