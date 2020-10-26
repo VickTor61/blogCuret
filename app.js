@@ -34,71 +34,50 @@ const blogSchema = new mongoose.Schema({
 });
 
 const Post = mongoose.model("post", blogSchema);
-
-const day1 = new Post({
-  title: "day-1",
-  content: "go to the compose page to publish your blog",
-});
-const day2 = new Post({
-  title: "day-2",
-  content: "click on each of the blog posts to delete a post",
-});
-
-const posts = [day1, day2];
-
 app.get("/", function (req, res) {
-  try {
   Post.find({}, (err, foundItems) => {
-    if (!foundItems) {
-      Post.insertMany(posts, (err) => {
-        if (err) {
-          console.log(err);
-        } else {
-          console.log("successfully inserted");
-        }
-      });
-      res.redirect("/");
-    } else {
       res.render("home", {
         startingContent: homeStartingContent,
         display: foundItems,
       });
-    }
   });
-}catch(err){
-  next(err
-)
-}
+
+
 });
+
 
 app.get("/about", function (req, res) {
   res.render("about", { about: aboutContent });
 });
 
+
 app.get("/contact", function (req, res) {
   res.render("contact", { contactContent: contactContent });
 });
+
+
 app.get("/compose", function (req, res) {
   res.render("compose");
 });
 
 app.post("/compose", function (req, res) {
-  const composeBody = {
-    title: req.body.postTitle,
-    content: req.body.postBody,
-  };
 
   const newPost = new Post({
-    title: composeBody.title,
-    content: composeBody.content,
+    title: req.body.postTitle,
+    content: req.body.postBody,
   });
 
-  newPost.save();
+  newPost.save((err) => {
+    if(!err) {
+       res.redirect("/");
+    }
+  });
 
-  res.redirect("/");
 });
+
+
 app.get("/posts/:posted", function (req, res) {
-  try {
+
   Post.find({}, (err, foundItems) => {
     if (err) {
       console.log(err);
@@ -116,25 +95,18 @@ app.get("/posts/:posted", function (req, res) {
       });
     }
   });
-} catch(err) {
-  next(err);
-}
 });
 
 //delete post from both frontend and backend
 
 app.post("/delete", (req, res) => {
-  try {
+
   const deleteItem = req.body.deleteBtn;
 
-  Post.findByIdAndRemove(deleteItem, (err) => {
-    err ? console.log(err) : console.log("successfully deleted from database");
+  Post.findOneAndDelete(deleteItem, (err) => {
+    err ? console.log(err) : console.log("successfully " + deleteItem + "deleted from database");
   });
   res.redirect("/");
-}
-catch(err) {
-  next(err)
-}
 });
 
 app.listen(process.env.PORT || 3030, function () {

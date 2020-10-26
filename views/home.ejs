@@ -14,7 +14,7 @@
         <span class="close">&times;</span>
         <p>Are you sure you want to delete this post?</p>
 
-        <button name="deleteBtn" value="<%= element._id %>" class="btn">
+        <button name="deleteBtn" onchange="this.form.submit()" value="<%= element._id %>" class="btn">
           Yes
         </button>
       </div>
