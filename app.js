@@ -79,9 +79,7 @@ app.post("/compose", function (req, res) {
 app.get("/posts/:posted", function (req, res) {
 
   Post.find({}, (err, foundItems) => {
-    if (err) {
-      console.log(err);
-    } else {
+    if (!err)  {
       const postTitle = _.lowerCase(req.params.posted);
       foundItems.forEach((post) => {
         const composeLowercase = _.lowerCase(post.title);
@@ -102,10 +100,13 @@ app.get("/posts/:posted", function (req, res) {
 app.post("/delete", (req, res) => {
 
   const deleteItem = req.body.deleteBtn;
-
-  Post.findOneAndDelete(deleteItem, (err) => {
-    err ? console.log(err) : console.log("successfully " + deleteItem + "deleted from database");
-  });
+  
+    Post.findByIdAndDelete(deleteItem , (err) => {
+      if(!err) {
+        console.log("successfully " + deleteItem + " deleted from database");
+      }
+    })
+  .catch(err =>  console.log(err))
   res.redirect("/");
 });
 

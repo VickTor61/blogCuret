@@ -2,8 +2,10 @@ const icon = document.querySelectorAll(".trashicon");
 
 const modal = document.querySelector(".modal");
 for (i = 0; i < icon.length; i++) {
-  icon[i].onclick = function () {
+  icon[i].onclick = function(e) {
+   
     modal.style.display = "block";
+ 
   };
 }
 
