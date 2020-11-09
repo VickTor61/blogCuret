@@ -4,28 +4,14 @@
 <p><%= startingContent %></p>
 
 <% display.forEach(element => { %>
+<div class="container__items">
+<span class="btn-2 button_id" data_id="<%= element.id %>">Delete </span>
+<h1><%= element.title %></h1>
+<p>
+  <%= element.content.substring(0, 100) + " ..." %>
+  <a href="/posts/<%=element.title%>" class="post-link">Read More</a>
+</p>
+</div>
+<% }); %> 
 
-<form action="/delete" method="POST">
-  <!-- <i class="fas fa-trash trashicon "></i> -->
-  <span class="trashicon btn-2">Delete</span>
-  <div class="modal">
-    <div class="modal-content">
-      <div class="modal-body">
-        <span class="close">&times;</span>
-        <p>Are you sure you want to delete this post?</p>
-
-        <button name="deleteBtn" onchange="this.form.submit()" value="<%= element._id %>" class="btn">
-          Yes
-        </button>
-      </div>
-    </div>
-  </div>
-
-  <h1><%= element.title %></h1>
-  <p>
-    <%= element.content.substring(0, 100) + " ..." %>
-    <a href="/posts/<%=element.title%>" class="post-link">Read More</a>
-  </p>
-  <% }); %>
-</form>
 <%- include("partials/footer"); -%>
