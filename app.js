@@ -4,7 +4,6 @@ const bodyParser = require("body-parser");
 const ejs = require("ejs");
 const _ = require("lodash");
 const mongoose = require("mongoose");
-const Swal = require("sweetalert2");
 
 const homeStartingContent =
   "Lorem ipsum dolor sit amet, suas ponderum laboramus duo ad, his eu dicunt conclusionemque.Periculis interpretaris ex per, nominavi mediocritatem nec at.";
@@ -27,62 +26,62 @@ mongoose.connect(
   {
     useNewUrlParser: true,
     useUnifiedTopology: true,
-    useFindAndModify: false,
+    useFindAndModify: false
   }
 );
 
 const blogSchema = new mongoose.Schema({
   title: String,
-  content: String,
+  content: String
 });
 
 const Post = mongoose.model("post", blogSchema);
 
-app.get("/", function (req, res) {
+app.get("/", function(req, res) {
   Post.find({}, (err, foundItems) => {
     res.render("home", {
       startingContent: homeStartingContent,
-      display: foundItems,
+      display: foundItems
     });
   });
 });
 
-app.get("/about", function (req, res) {
+app.get("/about", function(req, res) {
   res.render("about", { about: aboutContent });
 });
 
-app.get("/contact", function (req, res) {
+app.get("/contact", function(req, res) {
   res.render("contact", { contactContent: contactContent });
 });
 
-app.get("/compose", function (req, res) {
+app.get("/compose", function(req, res) {
   res.render("compose");
 });
 
-app.post("/compose", function (req, res) {
+app.post("/compose", function(req, res) {
   const newPost = new Post({
     title: req.body.postTitle,
-    content: req.body.postBody,
+    content: req.body.postBody
   });
 
-  newPost.save((err) => {
+  newPost.save(err => {
     if (!err) {
       res.redirect("/");
     }
   });
 });
 
-app.get("/posts/:posted", function (req, res) {
+app.get("/posts/:posted", function(req, res) {
   Post.find({}, (err, foundItems) => {
     if (!err) {
       const postTitle = _.lowerCase(req.params.posted);
-      foundItems.forEach((post) => {
+      foundItems.forEach(post => {
         const composeLowercase = _.lowerCase(post.title);
 
         if (postTitle === composeLowercase) {
           res.render("post", {
             title: post.title,
-            content: post.content,
+            content: post.content
           });
         }
       });
@@ -90,23 +89,21 @@ app.get("/posts/:posted", function (req, res) {
   });
 });
 
-app.delete("/delete/:id", function (req, res) {
-  let query = { _id: req.params.id };
-console.log(query);
+//delete post from both frontend and backend
 
-   Post.deleteOne(query, (err) => {
-      if(!err) {
-        console.log("successfully deleted " + query._id + "from database");
+app.delete("/delete/:postId", (req, res) => {
+  console.log(req.params);
+  const postId = req.params.postId;
 
-        res.redirect("/");
-      } else{
-        console.log(err);
-      }
-    
-    })
-    
+  Post.findByIdAndDelete(postId, err => {
+    if (!err) {
+      console.log("successfully " + postId + " deleted from database");
+    }
+  }).catch(err => console.log(err));
+
+  res.json({ message: "Delete successfully" });
 });
 
-app.listen(process.env.PORT || 3030, function () {
-  console.log("server running on port 3030");
+app.listen(process.env.PORT || 3030, function() {
+  console.log("server running at port 3030");
 });
