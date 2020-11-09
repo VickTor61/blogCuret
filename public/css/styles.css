@@ -1,28 +1,47 @@
 body {
+  display: flex;
   min-height: 100vh;
+  flex-flow: column;
   margin: 0;
-  padding: 0;
 }
 #brandname {
   font-size: 1.5rem;
   opacity: 0.8;
   text-transform: uppercase;
   margin-left: 1rem;
-  display: flex;
-  flex: 100;
 }
 .nav-brand {
   padding: 1.5rem 0;
 }
 .navbar {
-  padding: 15px 1rem;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  border: 0;
+  border-radius: 0;
+  margin-bottom: 0;
+  font-size: 12px;
   letter-spacing: 5px;
   font-size: 1rem;
+}
+@media only screen and (min-width: 992px) {
+  #nav-right {
+    margin-left: 30%;
+  }
+  .navbar-nav li a {
+    margin: 0 0.7rem;
+  }
+}
+@media only screen and (min-width: 1347px) {
+  #nav-right {
+    margin-left: 45%;
+  }
 }
 .navbar-nav li a:hover {
   color: #1abc9c !important;
 }
-
+.post__container {
+  display: block;
+}
 .post-link {
   color: rgb(96, 18, 174);
   text-decoration: none;
@@ -65,7 +84,6 @@ body {
   background-color: rgba(230, 219, 219, 0.445);
   border-radius: 10px;
   color: rgb(116, 109, 109);
-  float: right;
 }
 .btn:hover {
   color: #fff;
@@ -74,16 +92,17 @@ body {
   transition: 5s ease-in;
 }
 
-.button_id {
+.trashicon {
   font-size: 16px;
   color: rgba(164, 157, 172, 0.863);
-  padding: 10px !important;
+  padding: 10px;
+  float: right;
   cursor: pointer;
   transition: 0.54s ease-in-out;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.048),
     0 6px 20px 0 rgba(0, 0, 0, 0.027);
 }
-.button_id:hover {
+.trashicon:hover {
   background-color: rgba(192, 24, 24, 0.918);
   transform: translateY(2px);
   color: #fff;
