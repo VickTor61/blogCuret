@@ -6,6 +6,7 @@ $(document).ready(function () {
       $target = $(e.target);
       const id = $target.attr("data_id");
 
+<<<<<<< HEAD
       Swal.fire({
         title: "Are you sure?",
         text: "You won't be able to revert this!",
@@ -30,3 +31,30 @@ $(document).ready(function () {
     });
   }
 });
+=======
+var span = document.getElementsByClassName("close")[0];
+
+// When the user clicks the button, open the modal
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+  modal.style.display = "none";
+};
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+};
+
+const deletePost = postId => {
+  return fetch(`/delete/${postId}`, {
+    method: "DELETE"
+  })
+    .then(response => {
+      window.location = "/";
+    })
+    .catch(error => console.log(error));
+};
+>>>>>>> 4f3798f... Fix deleting posts
