@@ -21,14 +21,13 @@ app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(__dirname + "/public"));
 
-mongoose.connect(
-  "mongodb+srv://victor-admin:osasenaga@cluster0.ld5s3.mongodb.net/blogDB",
-  {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-    useFindAndModify: false
-  }
-);
+const MONGO_URI = process.env.MONGO_URL || "";
+
+mongoose.connect(MONGO_URI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+  useFindAndModify: false
+});
 
 const blogSchema = new mongoose.Schema({
   title: String,
